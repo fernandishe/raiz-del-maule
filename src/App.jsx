@@ -11,23 +11,22 @@ function App() {
 
   const renderVista = () => {
     switch (vista) {
-      case 'home':
-        return <Home />;
-      case 'quienes':
-        return <QuienesSomos />;
-      case 'servicios':
-        return <Servicios />;
-      case 'contacto':
-        return <Contacto />;
-      default:
-        return <Home />;
+      case 'home': return <Home />;
+      case 'quienes': return <QuienesSomos />;
+      case 'servicios': return <Servicios />;
+      case 'contacto': return <Contacto />;
+      default: return <Home />;
     }
   };
 
   return (
     <div className="App">
+      {/* Menú superior */}
       <nav className="menu">
-        <h1>Raíz del Maule </h1>
+        <h1 className="flex items-center gap-2">
+          <img src="/logo_raizdelmaule.png" alt="Raíz del Maule" className="logo" />
+          Raíz del Maule
+        </h1>
         <ul>
           <li onClick={() => setVista('home')}>Home</li>
           <li onClick={() => setVista('quienes')}>Quiénes Somos</li>
@@ -35,6 +34,8 @@ function App() {
           <li onClick={() => setVista('contacto')}>Contacto</li>
         </ul>
       </nav>
+
+      {/* Contenido principal */}
       <main>{renderVista()}</main>
     </div>
   );
