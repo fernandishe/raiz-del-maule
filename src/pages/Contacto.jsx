@@ -1,10 +1,21 @@
 import React, { useRef } from "react";
 import emailjs from "emailjs-com";
 import { User, Mail, MessageSquare } from "lucide-react";
+//import Filter from "bad-words";
 
 export default function Contacto() {
   const form = useRef();
+  /*const filter = new Filter();
 
+  const message = form.current.message.value;
+  const name = form.current.user_name.value;
+  //const email = form.current.user_email.value;
+
+  // Validación de groserías
+  /*if (filter.isProfane(message) || filter.isProfane(name)) {
+    alert("❌ Tu mensaje contiene palabras no permitidas. Por favor, corrígelo.");
+    return;
+  }*/
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs.sendForm(

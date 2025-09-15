@@ -23,6 +23,16 @@ export default function Home() {
   const nextSlide = () => setCurrent((prev) => (prev + 1) % images.length);
   const prevSlide = () => setCurrent((prev) => (prev - 1 + images.length) % images.length);
 
+  const nextLightbox = (e) => {
+    e.stopPropagation();
+    setLightbox((prev) => (prev + 1) % images.length);
+  };
+
+  const prevLightbox = (e) => {
+    e.stopPropagation();
+    setLightbox((prev) => (prev - 1 + images.length) % images.length);
+  };
+
   // Estilos
   const containerStyle = {
     width: "90%",
@@ -45,7 +55,6 @@ export default function Home() {
     width: "100%",
     height: "100%",
     objectFit: "contain",
-    objectPosition: "center",
     transform: "translate(-50%, -50%)",
     transition: "opacity 1s ease-in-out",
     opacity: isActive ? 1 : 0,
@@ -80,7 +89,7 @@ export default function Home() {
     margin: "0.5rem auto 1.5rem auto",
   };
 
-  // Estilos para lightbox
+  // Lightbox
   const lightboxStyle = {
     position: "fixed",
     top: 0,
@@ -95,12 +104,31 @@ export default function Home() {
     cursor: "pointer",
   };
 
+  const lightboxContentStyle = {
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "90%",
+    maxWidth: "1200px",
+  };
+
   const lightboxImgStyle = {
-    maxWidth: "90%",
-    maxHeight: "90%",
+    maxWidth: "100%",
+    maxHeight: "90vh",
     objectFit: "contain",
     borderRadius: "12px",
     boxShadow: "0 0 20px rgba(0,0,0,0.5)",
+  };
+
+  const lightboxArrowStyle = {
+    fontSize: "3rem",
+    color: "white",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    borderRadius: "50%",
+    padding: "0.5rem 1rem",
+    cursor: "pointer",
+    userSelect: "none",
   };
 
   return (
@@ -118,23 +146,26 @@ export default function Home() {
             src={img}
             alt={`banner-${index}`}
             style={imgStyle(index === current)}
-            onClick={() => setLightbox(index)} // abre lightbox al hacer click
+            onClick={() => setLightbox(index)}
           />
         ))}
 
-        {/* Flechas */}
-        <div style={{ ...arrowStyle, left: "10px" }} onClick={prevSlide}>
-          &#10094;
-        </div>
-        <div style={{ ...arrowStyle, right: "10px" }} onClick={nextSlide}>
-          &#10095;
-        </div>
+        <div style={{ ...arrowStyle, left: "10px" }} onClick={prevSlide}>&#10094;</div>
+        <div style={{ ...arrowStyle, right: "10px" }} onClick={nextSlide}>&#10095;</div>
       </div>
 
       {/* Lightbox */}
       {lightbox !== null && (
         <div style={lightboxStyle} onClick={() => setLightbox(null)}>
-          <img src={images[lightbox]} alt={`lightbox-${lightbox}`} style={lightboxImgStyle} />
+          <div style={lightboxContentStyle}>
+            <div style={{ position: "absolute", left: "-60px" }} onClick={prevLightbox}>
+              <span style={lightboxArrowStyle}>&#10094;</span>
+            </div>
+            <img src={images[lightbox]} alt={`lightbox-${lightbox}`} style={lightboxImgStyle} />
+            <div style={{ position: "absolute", right: "-60px" }} onClick={nextLightbox}>
+              <span style={lightboxArrowStyle}>&#10095;</span>
+            </div>
+          </div>
         </div>
       )}
     </div>

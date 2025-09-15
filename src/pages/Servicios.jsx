@@ -10,7 +10,7 @@ export default function Servicios() {
         <li>Senderismo y observación de aves</li>
         <li>Traslados y hospedaje</li>
       </ul>
-      <img src="https://source.unsplash.com/800x300/?hiking,nature" alt="Servicios turísticos" />
+      {/*<img src="https://source.unsplash.com/800x300/?hiking,nature" alt="Servicios turísticos" />*/}
     </section>
   );
 }
